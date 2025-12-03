@@ -1,6 +1,28 @@
 version: 2.1
 
 jobs:
+  lint:
+    docker:
+      - image: cimg/base:current
+    steps:
+      - checkout
+      - run:
+          name: "Run linter"
+          command: |
+            echo "Pretvarujem sa, že lintujem..."
+            sleep 1
+
+  test:
+    docker:
+      - image: cimg/base:current
+    steps:
+      - checkout
+      - run:
+          name: "Run tests"
+          command: |
+            echo "Pretvarujem sa, že testujem..."
+            sleep 1
+
   say-hello:
     docker:
       - image: cimg/base:current
@@ -13,4 +35,10 @@ jobs:
 workflows:
   say-hello-workflow:
     jobs:
-      - say-hello
+      - lint
+      - test:
+          requires:
+            - lint
+      - say-hello:
+          requires:
+            - test
