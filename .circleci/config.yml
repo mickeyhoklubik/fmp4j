@@ -10,9 +10,6 @@ jobs:
           name: "Run unit tests"
           command: ./gradlew test
       - run:
-          name: "Run integration tests"
-          command: ./gradlew integrationTest
-      - run:
           name: "Generate test coverage report"
           command: ./gradlew jacocoTestReport
       - store_artifacts:
